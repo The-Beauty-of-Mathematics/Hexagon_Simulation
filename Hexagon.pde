@@ -52,28 +52,39 @@ class Hexagon{
   
   void show(){
     //if(pos.z < 10) return;
-    //colorMode(HSB);
     push();
+    //colorMode(HSB,360);
     translate(Pz * pos.x / pos.z + width / 2,Pz * pos.y / pos.z + height / 2);
     rotate(pos.z);
+    //{
+    //  //PVector d = vel.copy();
+    //  PVector d = (new PVector(0,0,1000)).sub(pos);
+    //  PVector cV = new PVector((cos(d.x / scale) + cos(d.y / scale + 2 * PI / 3) + cos(d.z / scale + 4 * PI / 3)) * 0x79 + 0x8,
+    //  (cos(d.z / scale) + cos(d.x / scale + 2 * PI / 3) + cos(d.y / scale + 4 * PI / 3)) * 0x79 + 0x8,
+    //  (cos(d.y / scale) + cos(d.z / scale + 2 * PI / 3) + cos(d.x / scale + 4 * PI / 3)) * 0x79 + 0x8);
+      
+    //  float vMag = vel.mag();
+      
+    //  cV.setMag(vMag / velScale);
+    //  velScale += 0.1;
+      
+    //  if(cV.x > 0xff) cV.x = 0xff;
+    //  if(cV.y > 0xff) cV.y = 0xff;
+    //  if(cV.z > 0xff) cV.z = 0xff;
+      
+    //  //color c = color((180 / PI) * atan2(d.z,d.x),255,255);
+    //  color c = color(0xff - cV.x,0xff - cV.y,0xff - cV.z);
+      
+    //  fill(c);
+    //}
     {
-      //PVector d = vel.copy();
-      PVector d = (new PVector(0,0,1000)).sub(pos);
-      PVector cV = new PVector((cos(d.x / scale) + cos(d.y / scale + 2 * PI / 3) + cos(d.z / scale + 4 * PI / 3)) * 0x79 + 0x8,
-      (cos(d.z / scale) + cos(d.x / scale + 2 * PI / 3) + cos(d.y / scale + 4 * PI / 3)) * 0x79 + 0x8,
-      (cos(d.y / scale) + cos(d.z / scale + 2 * PI / 3) + cos(d.x / scale + 4 * PI / 3)) * 0x79 + 0x8);
-      
-      float vMag = vel.mag();
-      
-      cV.setMag(vMag / velScale);
-      velScale += 0.1;
-      
-      if(cV.x > 0xff) cV.x = 0xff;
-      if(cV.y > 0xff) cV.y = 0xff;
-      if(cV.z > 0xff) cV.z = 0xff;
-      
-      //color c = color((180 / PI) * atan2(d.z,d.x),255,255);
-      color c = color(0xff - cV.x,0xff - cV.y,0xff - cV.z);
+      //color c = color(360 * (1 - 1 / (1 + vel.magSq() / 10.0)),255,255);
+      //color c = color(300, 255, 255);
+      float temp = vel.magSq() / 200.0;
+      float r = (temp >= 2000) ? 0xff * (1 - (temp - 2000) / 8000.0) : 0xff;
+      float g = (temp >= 2000) ? 0xff * (temp - 2000) / 8000.0 : 0;
+      float b = (temp >= 6500) ? 0xff * (temp - 6_500) / 3500 : 0;
+      color c = color(r,g,b);
       fill(c);
     }
     if(pos.z > 0){

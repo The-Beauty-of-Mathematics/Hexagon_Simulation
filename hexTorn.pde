@@ -16,6 +16,7 @@ void draw(){
   kE.add(calculateKE(hexs));
   
   background(0);
+  //background(0xbf * 0.25,0x90 * 0.25,0x70 * 0.25);
   noStroke();
   for(int i = 0; i < hexs.length; i++) for(int j = 0; j < i; j++){
     if(hexs[i].pos.z > hexs[j].pos.z){
